@@ -37,7 +37,10 @@
 #include <utility>
 
 namespace mstd {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 namespace rel_ops { using namespace std::rel_ops; }
+#pragma GCC diagnostic pop
 using std::initializer_list;
 using std::exchange;
 using std::forward;

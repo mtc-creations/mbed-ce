@@ -95,7 +95,6 @@ MBED_WEAK  uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
-    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 
     /* The voltage scaling allows optimizing the power consumption when the device is
        clocked below the maximum system frequency, to update the voltage scaling value
@@ -136,6 +135,7 @@ MBED_WEAK  uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
 
 #if DEVICE_USBDEVICE
     // Select PLLSAI output as USB clock source
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
     PeriphClkInitStruct.PLLSAI.PLLSAIM = 8;
     PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
     PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;
@@ -175,7 +175,6 @@ uint8_t SetSysClock_PLL_HSI(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
-    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 
     /* The voltage scaling allows optimizing the power consumption when the device is
        clocked below the maximum system frequency, to update the voltage scaling value
@@ -206,6 +205,7 @@ uint8_t SetSysClock_PLL_HSI(void)
 
 #if DEVICE_USBDEVICE
     // Select PLLSAI output as USB clock source
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
     PeriphClkInitStruct.PLLSAI.PLLSAIM = 8;
     PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
     PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;

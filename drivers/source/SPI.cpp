@@ -18,6 +18,9 @@
 #include "platform/mbed_critical.h"
 #include "mbed_error.h"
 
+// volatile ++/-- is deprecated in C++20 but used correctly here for atomic-like select counting
+#pragma GCC diagnostic ignored "-Wvolatile"
+
 #if DEVICE_SPI_ASYNCH
 #include "platform/mbed_power_mgmt.h"
 #endif

@@ -236,7 +236,6 @@ MBED_WEAK uint8_t SetSysClock_PLL_MSI(void)
 {
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
 #if MBED_CONF_TARGET_LSE_AVAILABLE
     // Enable LSE Oscillator to automatically calibrate the MSI clock
@@ -271,6 +270,7 @@ MBED_WEAK uint8_t SetSysClock_PLL_MSI(void)
 
 #if DEVICE_USBDEVICE
     /* Select MSI output as USB clock source */
+    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USB;
     PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_MSI; /* 48 MHz */
     HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
