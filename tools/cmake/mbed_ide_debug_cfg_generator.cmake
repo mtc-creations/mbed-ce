@@ -160,6 +160,7 @@ elseif(MBED_GENERATE_VS_CODE_DEBUG_CFGS)
 		\"gdbTarget\": \"127.0.0.1:${MBED_GDB_PORT}\",
 		\"request\": \"launch\",
 		\"preLaunchTask\": \"Build ${CMAKE_TARGET} and start GDB server\",
+		\"postDebugTask\": \"Kill GDB Server\",
 		// Override the command sequences used by VS Code to be correct for this GDB server
 		\"overrideLaunchCommands\": [\"${UPLOAD_LAUNCH_COMMANDS_FOR_JSON}\"],
 		\"overrideRestartCommands\": [\"${UPLOAD_RESTART_COMMANDS_FOR_JSON}\"],
@@ -208,6 +209,7 @@ elseif(MBED_GENERATE_VS_CODE_DEBUG_CFGS)
 		# Convert the CMake list into the correct format for tasks.json
 		list(GET MBED_UPLOAD_GDBSERVER_DEBUG_COMMAND 0 GDBSERVER_EXECUTABLE)
 		list(SUBLIST MBED_UPLOAD_GDBSERVER_DEBUG_COMMAND 1 -1 GDBSERVER_ARGS)
+		get_filename_component(GDBSERVER_EXE_BASENAME ${GDBSERVER_EXECUTABLE} NAME)
 		set(GDBSERVER_ARGS_STR "")
 		set(IS_FIRST_ARG TRUE)
 		foreach(ELEMENT ${GDBSERVER_ARGS})
@@ -251,6 +253,14 @@ elseif(MBED_GENERATE_VS_CODE_DEBUG_CFGS)
 					}
 				}
 			],
+		},
+		{
+			\"label\": \"Kill GDB Server\",
+			\"type\": \"shell\",
+			\"command\": \"taskkill\",
+			\"args\": [\"/F\", \"/IM\", \"${GDBSERVER_EXE_BASENAME}\", \"/T\"],
+			\"presentation\": {\"reveal\": \"never\"},
+			\"problemMatcher\": [],
 		}
 	]
 
