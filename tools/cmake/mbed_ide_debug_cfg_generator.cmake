@@ -261,7 +261,36 @@ elseif(MBED_GENERATE_VS_CODE_DEBUG_CFGS)
 			\"args\": [\"/F\", \"/IM\", \"${GDBSERVER_EXE_BASENAME}\", \"/T\"],
 			\"presentation\": {\"reveal\": \"never\"},
 			\"problemMatcher\": [],
-		}
+		},")
+
+		# Add Reset MCU task if a reset command was defined by the upload method
+		if(MBED_UPLOAD_RESET_COMMAND)
+			list(GET MBED_UPLOAD_RESET_COMMAND 0 RESET_EXECUTABLE)
+			list(SUBLIST MBED_UPLOAD_RESET_COMMAND 1 -1 RESET_ARGS)
+			set(RESET_ARGS_STR "")
+			set(IS_FIRST_ARG TRUE)
+			foreach(ELEMENT ${RESET_ARGS})
+				if(IS_FIRST_ARG)
+					set(IS_FIRST_ARG FALSE)
+				else()
+					string(APPEND RESET_ARGS_STR ", ")
+				endif()
+				string(REPLACE "\"" "\\\"" ELEMENT "${ELEMENT}")
+				string(APPEND RESET_ARGS_STR "\"${ELEMENT}\"")
+			endforeach()
+
+			set_property(GLOBAL APPEND_STRING PROPERTY VSCODE_TASKS_JSON_CONTENT "
+		{
+			\"label\": \"Reset MCU\",
+			\"type\": \"shell\",
+			\"command\": \"${RESET_EXECUTABLE}\",
+			\"args\": [${RESET_ARGS_STR}],
+			\"presentation\": {\"reveal\": \"always\"},
+			\"problemMatcher\": [],
+		},")
+		endif()
+
+		set_property(GLOBAL APPEND_STRING PROPERTY VSCODE_TASKS_JSON_CONTENT "
 	]
 
 }

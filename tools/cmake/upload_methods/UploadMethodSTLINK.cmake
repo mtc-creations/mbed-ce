@@ -61,3 +61,9 @@ set(UPLOAD_LAUNCH_COMMANDS
 set(UPLOAD_RESTART_COMMANDS
 	"monitor reset"
 )
+
+### Command to reset the microcontroller (no flash, no debug)
+set(UPLOAD_RESET_COMMAND
+	${st-flash_PATH}
+	${STLINK_SERIAL_ARGUMENT}
+	reset)

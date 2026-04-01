@@ -85,3 +85,11 @@ set(UPLOAD_LAUNCH_COMMANDS
 set(UPLOAD_RESTART_COMMANDS
 "monitor reset halt"
 )
+
+### Command to reset the microcontroller (no flash, no debug)
+set(UPLOAD_RESET_COMMAND
+	${Python3_EXECUTABLE}
+	-m pyocd
+	reset
+	-t ${PYOCD_TARGET_NAME}
+	${PYOCD_PROBE_ARGS})

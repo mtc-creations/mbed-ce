@@ -69,3 +69,10 @@ set(UPLOAD_LAUNCH_COMMANDS
 set(UPLOAD_RESTART_COMMANDS
 	"monitor reset"
 )
+
+### Command to reset the microcontroller (no flash, no debug)
+set(UPLOAD_RESET_COMMAND
+	${STM32CubeProg_COMMAND}
+	${STM32CUBE_CONNECT_COMMAND}
+	${STM32CUBE_UPLOAD_PROBE_ARGS}
+	-rst)

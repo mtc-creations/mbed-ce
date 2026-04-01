@@ -119,3 +119,12 @@ set(UPLOAD_RESTART_COMMANDS
 	"monitor gdb_sync"
 	"stepi"
 )
+
+### Command to reset the microcontroller (no flash, no debug)
+set(UPLOAD_RESET_COMMAND
+	${OpenOCD}
+	${OPENOCD_CHIP_CONFIG_COMMANDS}
+	${OPENOCD_ADAPTER_SERIAL_COMMAND}
+	-c "init"
+	-c "reset run"
+	-c "exit")
